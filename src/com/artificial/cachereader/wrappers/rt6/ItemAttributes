@@ -1,0 +1,191 @@
+3	magic accuracy
+4	ranged accuracy
+14	attack speed
+25	strange rock skill
+68	blackjack level
+74	npc spawn id
+77	ahrims
+78	dharoks
+79	guthans
+80	karils
+81	torags
+82	veracs
+211	construction item id 1
+212	construction item count 1
+213	construction item id 2
+214	construction item count 2
+215	construction item id 3
+216	construction item count 3
+217	construction item id 4
+218	construction item count 4
+219	construction item id 5
+220	construction item count 5
+221	construction item id 6
+222	construction item count 6
+226	poh item
+237	god arrows
+258	emote cape
+259	trimmed skillcape
+277	skillcape skill
+358	glouphrie side count
+359	glouphrie color number
+394	summoning level req
+395	pet type?
+457	bogrog shard return
+528	equip action 1
+529	equip action 2
+530	equip action 3
+531	equip action 4
+541	percent damage reduction in tzhaar
+599	scroll special move points
+624	hats?
+625	more hats?
+641	melee damage
+643	ranged damage
+644	attack animation?
+742	culinaromancer chest weapon level
+749	wield skill 1
+750	wield level 1
+751	wield skill 2
+752	wield level 2
+753	wield skill 3
+754	wield level 3
+755	wield skill 4
+756	wield level 4
+757	wield skill 5
+758	wield level 5
+759	wield skill 6
+760	wield level 6
+761	combat level requirement
+770	skill 1
+771	level 1
+772	skill 2
+773	level 2
+774	skill 3
+775	level 3
+776	skill 4
+777	level 4
+802	mobilising armies
+803	defeated mobilising armies
+805	ma squad type
+806	ma squad weight
+811	ma npc id
+814	ma npc id
+821	ma point cost
+823	bug lantern
+954	barbarian assault gear
+955	ba wave ticket level
+963	heal amount
+965	magic damage
+972	infinite air
+973	infinite water
+974	infinite earth
+975	infinite fire
+1091	god bow corresponding
+1092	god arrows
+1211	equip action 5
+1225	key block level
+1226	key block weight
+1264	action 1
+1265	action 2
+1326	life bonus
+1366	chompy kills required
+1367	chompy ogre name
+1368	chompy hat description
+1953	akrisae
+2091	aura
+2185	journal page number
+2400	xp lamp
+2522	description of building
+2525	sweet
+2526	savoury
+2527	bitter
+2528	sour
+2529	fruity
+2530	spicy
+2549	pendant type
+2640	creation skill
+2645	creation skill level
+2650	tool
+2653	count made at a time
+2655	ingredient id 1
+2656	ingredient id 2
+2657	ingredient id 3
+2658	ingredient id 4
+2659	ingredient id 5
+2660	ingredient id 6
+2665	ingredient count 1
+2666	ingredient count 2
+2667	ingredient count 3
+2668	ingredient count 4
+2669	ingredient count 5
+2670	ingredient count 6
+2696	experience skill
+2697	experience
+2698	experience skill 2
+2699	experience 2
+2821	melee gear
+2822	range gear
+2823	magic gear
+2824	neutral gear
+2825	melee weapon
+2826	range weapon
+2827	magic weapon
+2832	shield slot
+2833	melee critical
+2834	range critical
+2835	magic critical
+2870	armor rating
+2946	prayer bonus
+2951	food level
+2952	degradable
+2970	number of bites
+2972	kebab
+2980	dragonfire shield
+2988	tree seedlings
+2993	tool skill
+2997	boost type 1
+2998	boost skill 1
+2999	boost base 1
+3000	boost percentage 1
+3001	boost type 2
+3002	boost skill 2
+3003	boost base 2
+3004	boost percentage 2
+3005	boost type 3
+3006	boost skill 3
+3007	boost base 3
+3008	boost percentage 3
+3009	boost type 4
+3010	boost skill 4
+3011	boost base 4
+3012	boost percentage 4
+3013	boost type 5
+3014	boost skill 5
+3015	boost base 5
+3016	boost percentage 5
+3078	utility level
+3081	speed stat
+3082	morale stat
+3083	combat stat
+3084	seafaring stat
+3094	chimes cost
+3095	crew level
+3096	cost in bamboo
+3101	solidarity increase
+3102	staunch
+3103	rallying cry
+3105	good fortune
+3107	merchant percentage
+3108	ressurects
+3203	barrows set number?
+3267	melee accuracy
+3379	player owned ports items
+3410	warpriest saradomin/zamorak
+3649	pouches?
+3684	boons
+3698	portent healing
+3759	bonds
+3920	warpriest armadyl/bandos
+3943	warpriest
+4005	rare

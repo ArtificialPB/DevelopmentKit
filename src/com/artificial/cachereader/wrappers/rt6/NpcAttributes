@@ -1,0 +1,11 @@
+3 magic accuracy
+4 range accuracy
+14 attack speed in ticks (0.6 seconds)
+29 melee accuracy
+26 weakness attack style (1 = magic, 2 = melee, 3 = range)
+641 melee max hit
+643 range max hit
+965 magic max hit
+2865 armour
+2848 weakness type (0 - nothing, 1 - air, 2 - water, 3 - earth, 4 - fire, 5 - stab, 6 - slash, 7 - crush, 8 - arrows, 9 - bolts, 10 - thrown weapons)
+2836 special weakness (0 - nothing, 1 - silverlight/darklight/holy water, 2 - balmung, 6 - blisterwood, 7 - keris, 8 - salve amulet,
