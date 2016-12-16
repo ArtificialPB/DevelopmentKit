@@ -58,7 +58,7 @@ public class DevelopmentKit extends JFrame {
             properties.add(new Object[]{entry.getKey(), entry.getValue()});
         }
         attributesTable.setModel(new DefaultTableModel(properties.toArray(new Object[properties.size()][2]), new Object[]{"Field", "Value"}));
-        showChildrenButton.setEnabled(selectedDefinition instanceof Dynamic && ((Dynamic) selectedDefinition).scriptId() != -1);
+        showChildrenButton.setEnabled(selectedDefinition instanceof Dynamic && ((Dynamic) selectedDefinition).dynamic());
     }
 
     private void loaderComboActionPerformed() {
@@ -114,36 +114,48 @@ public class DevelopmentKit extends JFrame {
     private void showChildrenButtonActionPerformed() {
         if (loadedChildrenFrame.isVisible()) {
             loadedChildrenFrame.requestFocus();
-        } else {
-            final WrapperLoader<?, ?> scriptLoader = cache.getLoader(currentLoader.getScriptClass());
+            return;
+        }
+        final Dynamic object = (Dynamic) selectedDefinition;
+        if (object.dynamic()) {
             final WrapperLoader<?, ?> defLoader = cache.getLoader(currentLoader.getWrapperClass());
-            final Dynamic dynamic = (Dynamic) selectedDefinition;
             final List<Object[]> children = new LinkedList<>();
-            if (scriptLoader.canLoad(dynamic.scriptId())) {
-                for (int i = 0; i < dynamic.childrenIds().length; i++) {
-                    final int id = dynamic.childrenIds()[i];
-                    if (id == -1 || !defLoader.canLoad(id)) continue;
-                    final Wrapper<?> def = defLoader.load(id);
-                    children.add(new Object[]{i, id, def.getDeclaredFields().get("name"), def.getDeclaredFields().get("actions")});
+            final int[] childrenIds = object.childrenIds();
+            for (int i = 0; i < childrenIds.length; i++) {
+                final int id = childrenIds[i];
+                if (id == -1 || !defLoader.canLoad(id)) continue;
+                final Wrapper<?> def = defLoader.load(id);
+                children.add(new Object[]{i, id, def.getDeclaredFields().get("name"), def.getDeclaredFields().get("actions")});
+            }
+            final int configId = object.configId();
+            final int scriptId = object.scriptId();
+            String varpString = configToString(configId);
+            if (scriptId != -1) {
+                final WrapperLoader<?, ?> scriptLoader = cache.getLoader(currentLoader.getScriptClass());
+                if (!scriptLoader.canLoad(scriptId)) {
+                    loadedChildrenFrame.loadChildren("Cache does not contain script definition for " + scriptId, Collections.emptyList());
+                    return;
                 }
-                final Wrapper<?> scriptDef = scriptLoader.load(dynamic.scriptId());
+                final Wrapper<?> scriptDef = scriptLoader.load(scriptId);
                 final int varp = (int) scriptDef.getDeclaredFields().get("configId");
                 final int lowerBitIndex = (int) scriptDef.getDeclaredFields().get("lowerBitIndex");
                 final int upperBitIndex = (int) scriptDef.getDeclaredFields().get("upperBitIndex");
-
-                loadedChildrenFrame.loadChildren(
-                        getVarpbitAsString(varp, lowerBitIndex, upperBitIndex),
-                        children
-                );
-                loadedChildrenFrame.setVisible(true);
-            } else {
-                loadedChildrenFrame.loadChildren("Cache does not contain script definition " + dynamic.scriptId(), Collections.emptyList());
+                varpString = scriptToString(varp, lowerBitIndex, upperBitIndex);
             }
+            loadedChildrenFrame.loadChildren(
+                    varpString,
+                    children
+            );
+            loadedChildrenFrame.setVisible(true);
         }
     }
 
-    private static String getVarpbitAsString(final int varp, final int lowerBitIndex, final int upperBitIndex) {
+    private static String scriptToString(final int varp, final int lowerBitIndex, final int upperBitIndex) {
         return "ctx.varpbits.varpbit(" + varp + ", " + lowerBitIndex + ", 0x" + Integer.toHexString(getMask(upperBitIndex, lowerBitIndex)) + ");";
+    }
+
+    private static String configToString(final int varp) {
+        return "ctx.varpbits.varpbit(" + varp + ");";
     }
 
     private static int getMask(final int upperBitIndex, final int lowerBitIndex) {

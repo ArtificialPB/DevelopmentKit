@@ -286,8 +286,18 @@ public class NpcDefinition extends ProtocolWrapper implements Dynamic {
     }
 
     @Override
+    public boolean dynamic() {
+        return scriptId != -1 || configId != -1;
+    }
+
+    @Override
     public int scriptId() {
-        return scriptId == -1 ? configId : scriptId;
+        return scriptId;
+    }
+
+    @Override
+    public int configId() {
+        return configId;
     }
 
     @Override
