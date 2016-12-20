@@ -5,19 +5,19 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 
-public class LoadedChildrenFrame extends JFrame {
-    public LoadedChildrenFrame() {
+class LoadedChildrenFrame extends JFrame {
+    LoadedChildrenFrame() {
         initComponents();
     }
 
-    public void loadChildren(final String varpbitText, final java.util.List<Object[]> children) {
+    void loadChildren(final String varpbitText, final java.util.List<Object[]> children) {
         varpbitTextField.setText(varpbitText);
         final Object[][] rows = new Object[children.size()][];
         int index = 0;
         for (final Object[] child : children) {
             rows[index++] = child;
         }
-        childrenTable.setModel(new DefaultTableModel(rows, new Object[]{"Varpbit", "Id", "Name", "Actions"}));
+        childrenTable.setModel(new DefaultTableModel(rows, new Object[]{"State", "Id", "Name", "Actions"}));
     }
 
     private void initComponents() {

@@ -2,6 +2,7 @@ package com.artificial.developmentkit;
 
 import com.artificial.cachereader.fs.CacheSystem;
 import com.artificial.cachereader.wrappers.Dynamic;
+import com.artificial.cachereader.wrappers.Script;
 import com.artificial.cachereader.wrappers.Wrapper;
 import com.artificial.cachereader.wrappers.WrapperLoader;
 
@@ -13,7 +14,7 @@ import java.awt.event.KeyEvent;
 import java.util.*;
 import java.util.List;
 
-public class DevelopmentKit extends JFrame {
+class DevelopmentKit extends JFrame {
     private final CacheSystem cache;
     private final TypeLoader[] typeLoaders;
     private static final List<Wrapper<?>> CACHED_DEFINITIONS = new ArrayList<>();
@@ -25,7 +26,7 @@ public class DevelopmentKit extends JFrame {
     private Wrapper<?> selectedDefinition = null;
 
 
-    public DevelopmentKit(final CacheSystem cache, final TypeLoader[] typeLoaders) {
+    DevelopmentKit(final CacheSystem cache, final TypeLoader[] typeLoaders) {
         this.cache = cache;
         this.typeLoaders = typeLoaders;
         initComponents();
@@ -100,7 +101,7 @@ public class DevelopmentKit extends JFrame {
         filteredObjectsList.setModel(listModel);
     }
 
-    public List<String> filterObjects(String text) {
+    private List<String> filterObjects(String text) {
         final List<String> list = new ArrayList<>();
         text = text.toLowerCase();
         for (final String i : CACHED_DISPLAY_NAMES) {
@@ -136,10 +137,10 @@ public class DevelopmentKit extends JFrame {
                     loadedChildrenFrame.loadChildren("Cache does not contain script definition for " + scriptId, Collections.emptyList());
                     return;
                 }
-                final Wrapper<?> scriptDef = scriptLoader.load(scriptId);
-                final int varp = (int) scriptDef.getDeclaredFields().get("configId");
-                final int lowerBitIndex = (int) scriptDef.getDeclaredFields().get("lowerBitIndex");
-                final int upperBitIndex = (int) scriptDef.getDeclaredFields().get("upperBitIndex");
+                final Script scriptDef = (Script) scriptLoader.load(scriptId);
+                final int varp = scriptDef.configId();
+                final int lowerBitIndex = scriptDef.lowerBitIndex();
+                final int upperBitIndex = scriptDef.upperBitIndex();
                 varpString = scriptToString(varp, lowerBitIndex, upperBitIndex);
             }
             loadedChildrenFrame.loadChildren(

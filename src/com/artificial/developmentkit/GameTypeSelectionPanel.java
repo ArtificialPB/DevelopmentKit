@@ -11,7 +11,7 @@ public class GameTypeSelectionPanel extends JDialog {
     private CacheSystem cache;
     private TypeLoader[] typeLoaders;
 
-    public GameTypeSelectionPanel() {
+    GameTypeSelectionPanel() {
         initComponents();
     }
 
@@ -19,7 +19,7 @@ public class GameTypeSelectionPanel extends JDialog {
         return cache;
     }
 
-    public TypeLoader[] getTypeLoaders() {
+    TypeLoader[] getTypeLoaders() {
         return typeLoaders;
     }
 

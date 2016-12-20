@@ -4,7 +4,7 @@ package com.artificial.cachereader.wrappers.rt6;
 import com.artificial.cachereader.datastream.Stream;
 import com.artificial.cachereader.wrappers.rt6.loaders.ScriptLoader;
 
-public class Script extends ProtocolWrapper {
+public class Script extends ProtocolWrapper implements com.artificial.cachereader.wrappers.Script {
 
     public int configId = -1;
     public int configType = -1;
@@ -24,5 +24,20 @@ public class Script extends ProtocolWrapper {
             lowerBitIndex = stream.getUByte();
             upperBitIndex = stream.getUByte();
         }
+    }
+
+    @Override
+    public int configId() {
+        return configId;
+    }
+
+    @Override
+    public int lowerBitIndex() {
+        return lowerBitIndex;
+    }
+
+    @Override
+    public int upperBitIndex() {
+        return upperBitIndex;
     }
 }
