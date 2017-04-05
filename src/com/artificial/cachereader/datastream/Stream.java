@@ -1,6 +1,5 @@
 package com.artificial.cachereader.datastream;
 
-
 import com.artificial.cachereader.compress.BZip2Decompressor;
 
 import java.nio.BufferUnderflowException;
@@ -8,35 +7,37 @@ import java.util.Arrays;
 import java.util.zip.Inflater;
 
 public abstract class Stream {
-
     public static final int BYTE_SIZE = 8, SHORT_SIZE = 16, INT_SIZE = 32, LONG_SIZE = 64;
-
     public static final int NUM_LONG_BYTES = LONG_SIZE / BYTE_SIZE;
     public static final int NUM_INT_BYTES = INT_SIZE / BYTE_SIZE;
     public static final int NUM_SHORT_BYTES = SHORT_SIZE / BYTE_SIZE;
-
     public static final int[] MASKS = new int[INT_SIZE];
+    public static final int BYTE_SIGN_BIT = 1 << (BYTE_SIZE - 1);
+    public static final int BYTE_MASK;
+    public static final int SKIP_SIGN_BYTE_MASK;
+    public static final int SHORT_SIGN_BIT = 1 << (SHORT_SIZE - 1);
+    public static final int SHORT_MASK;
+    public static final int SKIP_SIGN_SHORT_MASK;
+    public static final int INT_SIGN_BIT = 1 << (INT_SIZE - 1);
+    public static final int SKIP_SIGN_INT_MASK;
+    public static final long INT_MASK = 0xffffffffL;
+    private static final int MAX_NOSIGN_SHORT = 0x7fff;
+    private static final char charSubs[] = {'\u20AC', '\0', '\u201A', '\u0192', '\u201E', '\u2026', '\u2020',
+            '\u2021', '\u02C6', '\u2030', '\u0160', '\u2039', '\u0152', '\0', '\u017D', '\0', '\0', '\u2018',
+            '\u2019', '\u201C', '\u201D', '\u2022', '\u2013', '\u2014', '\u02DC', '\u2122', '\u0161', '\u203A',
+            '\u0153', '\0', '\u017E', '\u0178'};
 
     static {
         for (int i = 1, currentMask = 0; i < MASKS.length; ++i) {
             currentMask = currentMask << 1 | 1;
             MASKS[i] = currentMask;
         }
+        SKIP_SIGN_BYTE_MASK = MASKS[7];
+        BYTE_MASK = MASKS[8];
+        SKIP_SIGN_SHORT_MASK = MASKS[15];
+        SHORT_MASK = MASKS[16];
+        SKIP_SIGN_INT_MASK = MASKS[31];
     }
-
-    public static final int BYTE_SIGN_BIT = 1 << (BYTE_SIZE - 1);
-    public static final int BYTE_MASK = MASKS[BYTE_SIZE];
-    public static final int SKIP_SIGN_BYTE_MASK = MASKS[BYTE_SIZE - 1];
-
-    public static final int SHORT_SIGN_BIT = 1 << (SHORT_SIZE - 1);
-    public static final int SHORT_MASK = MASKS[SHORT_SIZE];
-    public static final int SKIP_SIGN_SHORT_MASK = MASKS[SHORT_SIZE - 1];
-
-    public static final int INT_SIGN_BIT = 1 << (INT_SIZE - 1);
-    public static final int SKIP_SIGN_INT_MASK = MASKS[INT_SIZE - 1];
-    public static final long INT_MASK = 0xffffffffL;
-
-    private static final int MAX_NOSIGN_SHORT = 0x7fff;
 
     public abstract int getLocation();
 
@@ -172,11 +173,6 @@ public abstract class Stream {
         }
     }
 
-    private static final char charSubs[] = {'\u20AC', '\0', '\u201A', '\u0192', '\u201E', '\u2026', '\u2020',
-            '\u2021', '\u02C6', '\u2030', '\u0160', '\u2039', '\u0152', '\0', '\u017D', '\0', '\0', '\u2018',
-            '\u2019', '\u201C', '\u201D', '\u2022', '\u2013', '\u2014', '\u02DC', '\u2122', '\u0161', '\u203A',
-            '\u0153', '\0', '\u017E', '\u0178'};
-
     public final String getString() {
         StringBuilder ret = new StringBuilder();
         int c;
@@ -260,7 +256,6 @@ public abstract class Stream {
         }
         inflater.reset();
     }
-
 
     public void skip(int num) {
         assertLeft(num);

@@ -1,26 +1,21 @@
 package com.artificial.cachereader.wrappers.rt4;
 
-
 import com.artificial.cachereader.datastream.Stream;
 import com.artificial.cachereader.wrappers.rt4.loaders.ItemDefinitionLoader;
 
 public class ItemDefinition extends ProtocolWrapper {
-
     public String name;
     public String[] actions = {null, null, null, null, "Drop"};
     public String[] groundActions = {null, null, "Take", null, null};
-
     public boolean stackable;
     public boolean members;
     public boolean noted;
     public boolean tradeable;
-
     public int noteId = -1;
     public int value = 0;
     public int noteTemplateId = -1;
     public int cosmeticId = -1;
     public int cosmeticTemplateId = -1;
-
     public int modelOffset;
     public short[] originalModelColors;
     public int modelSine;
@@ -85,6 +80,8 @@ public class ItemDefinition extends ProtocolWrapper {
                 stream.getUShort();
                 this.originalModelColors[i] = (short) stream.getUShort();
             }
+        } else if (opcode == 42) {
+            skipValue(opcode, stream.getByte());
         } else if (opcode == 65) {
             tradeable = true;
         } else if (78 == opcode) {
