@@ -7,10 +7,12 @@ public class ItemDefinition extends ProtocolWrapper {
     public String name;
     public String[] actions = {null, null, null, null, "Drop"};
     public String[] groundActions = {null, null, "Take", null, null};
+    public String shiftAction = "Drop"; //default action seems to be drop
     public boolean stackable;
     public boolean members;
     public boolean noted;
     public boolean tradeable;
+    public int shiftActionIndex = -1;
     public int noteId = -1;
     public int value = 0;
     public int noteTemplateId = -1;
@@ -81,7 +83,7 @@ public class ItemDefinition extends ProtocolWrapper {
                 this.originalModelColors[i] = (short) stream.getUShort();
             }
         } else if (opcode == 42) {
-            skipValue(opcode, stream.getByte());
+            this.shiftActionIndex = stream.getByte();
         } else if (opcode == 65) {
             tradeable = true;
         } else if (78 == opcode) {

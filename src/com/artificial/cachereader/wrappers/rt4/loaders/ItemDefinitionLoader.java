@@ -1,6 +1,5 @@
 package com.artificial.cachereader.wrappers.rt4.loaders;
 
-
 import com.artificial.cachereader.fs.FileData;
 import com.artificial.cachereader.fs.RT4CacheSystem;
 import com.artificial.cachereader.wrappers.rt4.ItemDefinition;
@@ -22,6 +21,10 @@ public class ItemDefinitionLoader extends ProtocolWrapperLoader<ItemDefinition> 
     private void fixItem(final ItemDefinition item) {
         if (item.noteTemplateId != -1) {
             fixNotedItem(item);
+        }
+        //we set shift action here in case the actions don't get loaded before the shift index is
+        if (item.shiftActionIndex != -1 && item.shiftActionIndex < item.actions.length) {
+            item.shiftAction = item.actions[item.shiftActionIndex];
         }
     }
 
