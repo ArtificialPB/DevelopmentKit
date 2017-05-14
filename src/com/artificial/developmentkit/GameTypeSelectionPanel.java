@@ -57,7 +57,7 @@ public class GameTypeSelectionPanel extends JDialog {
             panel1.setLayout(new FlowLayout());
 
             //---- label1 ----
-            label1.setText("<html><center>Welcome to Artificial's Development Kit!</center><br><center><b>Select for which game type would you like to load the kit for:</center></b></html>");
+            label1.setText("<html><center>Welcome to Artificial's Development Kit!</center><br><center><b>Select for which game componentType would you like to load the kit for:</center></b></html>");
             label1.setName("label1");
             panel1.add(label1);
         }
