@@ -28,26 +28,27 @@ import com.artificial.cachereader.datastream.Stream;
 import com.artificial.cachereader.wrappers.rt4.loaders.WrapperLoader;
 
 public class Component extends StreamedWrapper {
-    public int id = -1;
+    public int index = 0;
+    public int parentId = -1;
     public boolean hasScript = true;
     public int componentType;
     public int specialType;
+    public String text;
+    public String name;
+    public String[] actions;
+    public String selectedAction;
+    public String[] interfaceActions;
+    public String textFormatting;
+    public String spellName; //
+    public String tooltip;
     public int originalX;
     public int originalY;
     public int originalWidth;
     public int originalHeight;
-    public int field2226;
-    public int field2227;
-    public int field2351;
-    public int field2217;
-    public int parentId = -1;
     public boolean isHidden;
     public int scrollWidth;
     public int scrollHeight;
-    public boolean field2210;
     public int textureId;
-    public int field2294;
-    public boolean field2257;
     public int opacity;
     public int borderThickness;
     public int sprite2;
@@ -55,33 +56,46 @@ public class Component extends StreamedWrapper {
     public boolean flippedHorizontally;
     public int modelType;
     public int modelId;
-    public int field2268;
-    public int field2269;
     public int rotationX;
     public int rotationY;
     public int rotationZ;
     public int modelZoom;
-    public int field2266;
-    public boolean field2296;
-    public int field2274;
-    public int fontId;
-    public String text;
-    public int field2212;
-    public int field2219;
-    public int field2283;
     public boolean textCentered;
     public int textColor;
     public boolean filled;
+    public int fontId;
+    public Object[] compTextureSpells;
+    public int actionType;
+    public int[][] dynamicValues;
+    public int[] itemIds;
+    public int[] itemQuantities;
+    public int[] spritesX;
+    public int[] spritesY;
+    public int[] sprites;
+    public int activeColor;
+    public int mouseOverColor;
+    public int mouseOverActiveColor;
+    public int field2226;
+    public int field2227;
+    public int field2351;
+    public int field2217;
+    public boolean field2210;
+    public int field2294;
+    public boolean field2257;
+    public int field2268;
+    public int field2269;
+    public int field2266;
+    public boolean field2296;
+    public int field2274;
+    public int field2212;
+    public int field2219;
+    public int field2283;
     public int field2218;
     public boolean field2253;
     public int field2291;
-    public String name;
-    public String[] actions;
     public int field2295;
     public int field2223;
     public boolean field2297;
-    public String selectedAction;
-    public Object[] compTextureSpells;
     public Object[] field2300; //
     public Object[] field2248; //
     public Object[] field2311; //
@@ -103,33 +117,18 @@ public class Component extends StreamedWrapper {
     public int[] field2315;
     public int[] field2282;
     public boolean field2299;
-    public int actionType;
     public int field2334;
     public int[] field2224;
     public int[] field2333;
-    public int[][] dynamicValues;
-    public int[] itemIds;
-    public int[] itemQuantities;
     public int field2285;
     public int field2286;
-    public int[] spritesX;
-    public int[] spritesY;
-    public int[] sprites;
-    public String[] interfaceActions;
-    public String textFormatting;
-    public int activeColor;
-    public int mouseOverColor;
-    public int mouseOverActiveColor;
     public int field2332;
     public int field2264;
     public int field2265;
     public int field2276;
-    public String spellName; //
-    public String tooltip;
 
     public Component(WrapperLoader<?> loader, int id) {
         super(loader, id);
-        this.id = id;
     }
 
     @Override
@@ -139,13 +138,6 @@ public class Component extends StreamedWrapper {
         } else {
             decodeInterface(stream);
         }
-    }
-
-    public int index = 0;
-
-    @Override
-    public String toString() {
-        return index + " (" + id + ")";
     }
 
     private void decodeInterface(Stream stream) {
@@ -162,7 +154,7 @@ public class Component extends StreamedWrapper {
         if (parentId == '\uffff') {
             parentId = -1;
         } else {
-            parentId += id & -65536;
+            parentId += id() & -65536;
         }
 
         field2334 = stream.getUShort();
@@ -569,5 +561,10 @@ public class Component extends StreamedWrapper {
 
             return var3;
         }
+    }
+
+    @Override
+    public String toString() {
+        return index + " (" + id() + ")";
     }
 }

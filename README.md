@@ -13,6 +13,7 @@ Item
 Npc
 Object
 Quest
+Component
 ```
 
 **OSRS**
@@ -20,4 +21,5 @@ Quest
 Item
 Npc
 Object
+Component
 ```

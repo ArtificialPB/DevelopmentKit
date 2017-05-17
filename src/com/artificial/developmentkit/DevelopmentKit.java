@@ -1,6 +1,5 @@
 package com.artificial.developmentkit;
 
-import com.artificial.cachereader.GameType;
 import com.artificial.cachereader.fs.CacheSystem;
 import com.artificial.cachereader.wrappers.Dynamic;
 import com.artificial.cachereader.wrappers.Script;
@@ -31,37 +30,39 @@ class DevelopmentKit extends JFrame {
     DevelopmentKit(final CacheSystem cache, final TypeLoader[] typeLoaders) {
         this.cache = cache;
         this.typeLoaders = typeLoaders;
+        initMenuBar();
         initComponents();
         /*initial load*/
         currentLoader = typeLoaders[0];
         loadDefinitions(currentLoader);
-        if (cache.getCacheSource().getSourceSystem().getGameType() == GameType.RT4) {
-            final JMenuBar menuBar = new JMenuBar();
-            final JMenu explorerItem = new JMenu("Component Explorer");
-            explorerItem.addMenuListener(new MenuListener() {
-                @Override
-                public void menuSelected(MenuEvent e) {
-                    if (componentExplorer == null) {
-                        componentExplorer = new ComponentExplorer(cache);
-                    }
-                    componentExplorer.setVisible(true);
-                    componentExplorer.requestFocus();
+    }
+
+    private void initMenuBar() {
+        final JMenuBar menuBar = new JMenuBar();
+        final JMenu explorerItem = new JMenu("Component Explorer");
+        explorerItem.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+                if (componentExplorer == null) {
+                    componentExplorer = new ComponentExplorer(cache);
                 }
+                componentExplorer.setVisible(true);
+                componentExplorer.requestFocus();
+            }
 
-                @Override
-                public void menuDeselected(MenuEvent e) {
+            @Override
+            public void menuDeselected(MenuEvent e) {
 
-                }
+            }
 
-                @Override
-                public void menuCanceled(MenuEvent e) {
+            @Override
+            public void menuCanceled(MenuEvent e) {
 
-                }
-            });
-            explorerItem.setPopupMenuVisible(false);
-            menuBar.add(explorerItem);
-            this.setJMenuBar(menuBar);
-        }
+            }
+        });
+        explorerItem.setPopupMenuVisible(false);
+        menuBar.add(explorerItem);
+        this.setJMenuBar(menuBar);
     }
 
     private void filteredObjectsListValueChanged() {

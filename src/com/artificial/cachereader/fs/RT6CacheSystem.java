@@ -10,6 +10,7 @@ public class RT6CacheSystem extends CacheSystem<RT6CacheSystem> {
     public final ScriptLoader scriptLoader;
     public final QuestDefinitionLoader questLoader;
     public final NpcDefinitionLoader npcLoader;
+    public final WidgetLoader widgetLoader;
 
     public RT6CacheSystem() {
         super(GameType.RT6);
@@ -18,6 +19,7 @@ public class RT6CacheSystem extends CacheSystem<RT6CacheSystem> {
         addLoader(scriptLoader = new ScriptLoader(this));
         addLoader(questLoader = new QuestDefinitionLoader(this));
         addLoader(npcLoader = new NpcDefinitionLoader(this));
+        addLoader(widgetLoader = new WidgetLoader(this));
     }
 
 }
