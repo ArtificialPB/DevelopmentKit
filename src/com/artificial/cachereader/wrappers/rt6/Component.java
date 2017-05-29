@@ -26,7 +26,7 @@ public class Component extends StreamedWrapper {
     public int spriteRoll;
     public int spriteScale;
     public String aString2368;
-    public String[] aStringArray2430;
+    public String[] tooltips;
     public String aString2394;
     public String aString2473;
     public String aString2480;
@@ -48,7 +48,6 @@ public class Component extends StreamedWrapper {
     public boolean aBool2415;
     public boolean aBool2416;
     public boolean aBool2417;
-    public int anInt2418;
     public boolean aBool2423;
     public int anInt2425;
     public int anInt2427;
@@ -164,7 +163,6 @@ public class Component extends StreamedWrapper {
             }
         }
         if (type == 6) {
-            anInt2418 = -512645613;
             anInt2486 = stream.getBigSmart();
             int i_46_ = stream.getUByte();
             boolean bool = (i_46_ & 0x1) == 1;
@@ -250,9 +248,9 @@ public class Component extends StreamedWrapper {
         int i_53_ = i_52_ & 0xf;
         int i_54_ = i_52_ >> 4;
         if (i_53_ > 0) {
-            aStringArray2430 = new String[i_53_];
+            tooltips = new String[i_53_];
             for (int i_55_ = 0; i_55_ < i_53_; i_55_++) {
-                aStringArray2430[i_55_] = stream.getString();
+                tooltips[i_55_] = stream.getString();
             }
         }
         if (i_54_ > 0) {

@@ -1,24 +1,23 @@
 package com.artificial.cachereader.wrappers.rt4;
 
-
 import com.artificial.cachereader.datastream.Stream;
 import com.artificial.cachereader.wrappers.Dynamic;
 import com.artificial.cachereader.wrappers.rt4.loaders.NpcDefinitionLoader;
 
-public class NpcDefinition extends ProtocolWrapper implements Dynamic {
+import java.util.Map;
 
+public class NpcDefinition extends ProtocolWrapper implements Dynamic {
     public String name;
     public String[] actions = new String[5];
-
     public int combatLevel = -1;
     public int headIcon = -1;
     public boolean clickable = true;
     public boolean visible = true;
-
     public int scriptId = -1, configId = -1;
     public int[] childrenIds;
     public int[] modelIds;
     public short[] modifiedColors, originalColors;
+    public Map<Integer, Object> params;
 
     public NpcDefinition(final NpcDefinitionLoader loader, final int id) {
         super(loader, id);
@@ -111,6 +110,8 @@ public class NpcDefinition extends ProtocolWrapper implements Dynamic {
             // this.as = true;
         } else if (opcode == 112) {
             skipValue(opcode, stream.getUByte());
+        } else if (opcode == 249) {
+            this.params = decodeParams(stream);
         }
     }
 

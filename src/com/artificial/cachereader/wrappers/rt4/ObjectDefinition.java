@@ -1,12 +1,12 @@
 package com.artificial.cachereader.wrappers.rt4;
 
-
 import com.artificial.cachereader.datastream.Stream;
 import com.artificial.cachereader.wrappers.Dynamic;
 import com.artificial.cachereader.wrappers.rt4.loaders.ObjectDefinitionLoader;
 
-public class ObjectDefinition extends ProtocolWrapper implements Dynamic {
+import java.util.Map;
 
+public class ObjectDefinition extends ProtocolWrapper implements Dynamic {
     public String name;
     public String[] actions = new String[5];
     public int type = -1;
@@ -15,15 +15,12 @@ public class ObjectDefinition extends ProtocolWrapper implements Dynamic {
     public boolean walkable = true;
     public boolean walkable2 = false;
     public int blockType = 2;
-
     public int scriptId = -1;
     public int configId = -1;
     public int[] childrenIds;
-
     public int[] modelTypes;
     public int[] modelIds;
     public int[] modifiedColors, originalColors;
-
     public int animationId;
     public int icon;
     public boolean rotated;
@@ -32,6 +29,7 @@ public class ObjectDefinition extends ProtocolWrapper implements Dynamic {
     public int modelSizeZ;
     public int modelSizeX;
     public int modelSizeY;
+    public Map<Integer, Object> params;
 
     public ObjectDefinition(final ObjectDefinitionLoader loader, final int id) {
         super(loader, id);
@@ -168,6 +166,10 @@ public class ObjectDefinition extends ProtocolWrapper implements Dynamic {
             }
         } else if (81 == opcode) {
             this.type = stream.getUByte();
+        } else if (opcode == 82) {
+            skipValue(opcode, stream.getUShort());
+        } else if (opcode == 249) {
+            this.params = decodeParams(stream);
         }
     }
 

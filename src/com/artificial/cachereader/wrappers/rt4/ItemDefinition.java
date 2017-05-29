@@ -3,10 +3,13 @@ package com.artificial.cachereader.wrappers.rt4;
 import com.artificial.cachereader.datastream.Stream;
 import com.artificial.cachereader.wrappers.rt4.loaders.ItemDefinitionLoader;
 
+import java.util.Map;
+
 public class ItemDefinition extends ProtocolWrapper {
     public String name;
     public String[] actions = {null, null, null, null, "Drop"};
     public String[] groundActions = {null, null, "Take", null, null};
+    public String[] equipActions;
     public String shiftAction = "Drop"; //default action seems to be drop
     public boolean stackable;
     public boolean members;
@@ -26,6 +29,8 @@ public class ItemDefinition extends ProtocolWrapper {
     public int modelId;
     public short[] modifiedModelColors;
     public int modelRotation2;
+    public Map<Integer, Object> params;
+    private static final int[] EQUIP_ACTION_PARAMS = {451, 452, 453, 454, 455};
 
     public ItemDefinition(final ItemDefinitionLoader loader, final int id) {
         super(loader, id);
@@ -126,6 +131,28 @@ public class ItemDefinition extends ProtocolWrapper {
             skipValue(opcode, stream.getUShort());
         } else if (opcode == 149) {
             skipValue(opcode, stream.getUShort());
+        } else if (opcode == 249) {
+            this.params = decodeParams(stream);
+            loadEquipActions(params);
+        }
+    }
+
+    private void loadEquipActions(final Map<Integer, Object> params) {
+        int count = 0, idx = 0;
+        for (int id : EQUIP_ACTION_PARAMS) {
+            if (params.containsKey(id)) {
+                count++;
+            }
+        }
+        if (count == 0) {
+            return;
+        }
+        this.equipActions = new String[count];
+        for (int id : EQUIP_ACTION_PARAMS) {
+            String action = (String) params.get(id);
+            if (action != null) {
+                equipActions[idx++] = action;
+            }
         }
     }
 
