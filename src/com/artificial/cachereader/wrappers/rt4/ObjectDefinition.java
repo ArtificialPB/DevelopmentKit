@@ -140,17 +140,25 @@ public class ObjectDefinition extends ProtocolWrapper implements Dynamic {
             this.walkable2 = true;
         } else if (opcode == 75) {
             skipValue(opcode, stream.getUByte());
-        } else if (77 == opcode) {
+        } else if (77 == opcode || opcode == 92) {
             int script = stream.getUShort();
             int config = stream.getUShort();
+            int t = -1;
+            if (opcode == 92) {
+                t = stream.getUShort();
+                if (t == 65535) {
+                    t = -1;
+                }
+            }
             int count = stream.getUByte();
-            childrenIds = new int[count + 1];
-            for (int i = 0; i < childrenIds.length; i++) {
+            childrenIds = new int[count + 2];
+            for (int i = 0; i < count + 1; i++) {
                 childrenIds[i] = stream.getUShort();
                 if (childrenIds[i] == 0xffff) {
                     childrenIds[i] = -1;
                 }
             }
+            childrenIds[count + 1] = t;
             scriptId = script == 0xFFFF ? -1 : script;
             configId = config == 0xFFFF ? -1 : config;
         } else if (opcode == 78) {

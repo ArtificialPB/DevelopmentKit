@@ -211,6 +211,7 @@ class DevelopmentKit extends JFrame {
         setTitle("Development Kit by Artificial");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setName("this");
+        setAlwaysOnTop(true);
         Container contentPane = getContentPane();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 

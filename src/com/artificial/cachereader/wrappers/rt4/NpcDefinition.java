@@ -9,6 +9,7 @@ import java.util.Map;
 public class NpcDefinition extends ProtocolWrapper implements Dynamic {
     public String name;
     public String[] actions = new String[5];
+    public int size = -1;
     public int combatLevel = -1;
     public int headIcon = -1;
     public boolean clickable = true;
@@ -34,7 +35,7 @@ public class NpcDefinition extends ProtocolWrapper implements Dynamic {
         } else if (opcode == 2) {
             this.name = stream.getString();
         } else if (12 == opcode) {
-            skipValue(opcode, stream.getUByte());
+            size = stream.getUByte();
         } else if (opcode == 13) {
             skipValue(opcode, stream.getUShort());
         } else if (14 == opcode) {

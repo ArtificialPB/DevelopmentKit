@@ -30,6 +30,7 @@ class LoadedChildrenFrame extends JFrame {
         setName("this");
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+        setAlwaysOnTop(true);
 
         //======== scrollPane1 ========
         {
