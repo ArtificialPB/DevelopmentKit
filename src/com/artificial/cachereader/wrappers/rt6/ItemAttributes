@@ -32,10 +32,10 @@
 394	summoning level req
 395	pet type?
 457	bogrog shard return
-528	equip action 1
-529	equip action 2
-530	equip action 3
-531	equip action 4
+528	equipped action 1
+529	equipped action 2
+530	equipped action 3
+531	equipped action 4
 541	percent damage reduction in tzhaar
 599	scroll special move points
 624	hats?
@@ -86,12 +86,14 @@
 1211	equip action 5
 1225	key block level
 1226	key block weight
-1264	action 1
-1265	action 2
+1264	banked action 1
+1265	banked action 2
 1326	life bonus
 1366	chompy kills required
 1367	chompy ogre name
 1368	chompy hat description
+1429  aura cooldown time
+1430  aura activation time
 1953	akrisae
 2091	aura
 2185	journal page number
