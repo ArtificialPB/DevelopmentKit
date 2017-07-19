@@ -26,7 +26,7 @@ public class Component extends StreamedWrapper {
     public int spriteRoll;
     public int spriteScale;
     public String aString2368;
-    public String[] tooltips;
+    public String[] actions;
     public String aString2394;
     public String aString2473;
     public String aString2480;
@@ -248,9 +248,9 @@ public class Component extends StreamedWrapper {
         int i_53_ = i_52_ & 0xf;
         int i_54_ = i_52_ >> 4;
         if (i_53_ > 0) {
-            tooltips = new String[i_53_];
+            actions = new String[i_53_];
             for (int i_55_ = 0; i_55_ < i_53_; i_55_++) {
-                tooltips[i_55_] = stream.getString();
+                actions[i_55_] = stream.getString();
             }
         }
         if (i_54_ > 0) {
