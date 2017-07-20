@@ -15,7 +15,7 @@ public class ItemDefinition extends ProtocolWrapper {
     public boolean members;
     public boolean noted;
     public boolean tradeable;
-    public int shiftActionIndex = -1;
+    public int shiftActionIndex = -2;
     public int noteId = -1;
     public int value = 0;
     public int noteTemplateId = -1;
