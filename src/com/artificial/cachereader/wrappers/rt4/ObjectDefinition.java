@@ -29,6 +29,7 @@ public class ObjectDefinition extends ProtocolWrapper implements Dynamic {
     public int modelSizeZ;
     public int modelSizeX;
     public int modelSizeY;
+    public int approachableDirection;
     public Map<Integer, Object> params;
 
     public ObjectDefinition(final ObjectDefinitionLoader loader, final int id) {
@@ -127,7 +128,7 @@ public class ObjectDefinition extends ProtocolWrapper implements Dynamic {
         } else if (opcode == 68) {
             skipValue(opcode, stream.getUShort());
         } else if (69 == opcode) {
-            stream.getUByte(); // direction from which the obstacle is accesable
+            approachableDirection = stream.getUByte(); // direction from which the obstacle is accesable
         } else if (opcode == 70) {
             skipValue(opcode, stream.getUShort());
         } else if (opcode == 71) {

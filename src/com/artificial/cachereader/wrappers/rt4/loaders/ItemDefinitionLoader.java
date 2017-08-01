@@ -23,7 +23,7 @@ public class ItemDefinitionLoader extends ProtocolWrapperLoader<ItemDefinition> 
             fixNotedItem(item);
         }
         //we set shift action here in case the actions don't get loaded before the shift index is
-        if (item.shiftActionIndex != -1 && item.shiftActionIndex < item.actions.length) {
+        if (item.shiftActionIndex != -2 && item.shiftActionIndex < item.actions.length) {
             item.shiftAction = item.actions[item.shiftActionIndex];
         }
     }
