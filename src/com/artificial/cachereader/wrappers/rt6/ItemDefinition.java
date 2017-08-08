@@ -1,6 +1,5 @@
 package com.artificial.cachereader.wrappers.rt6;
 
-
 import com.artificial.cachereader.datastream.Stream;
 import com.artificial.cachereader.wrappers.rt6.loaders.ItemDefinitionLoader;
 
@@ -9,13 +8,15 @@ import java.util.Map;
 
 //Cache skills: 9 -> herblore, 11 -> crafting
 public class ItemDefinition extends ProtocolWrapper {
-
     public String name;
+    public String shardName = null;
     public String[] actions = {null, null, null, null, "Drop"};
     public String[] groundActions = {null, null, "Take", null, null};
     public String[] bankActions;
     public String[] equipActions;
-
+    public int combineId = -1;
+    public int combineTempladeId = -1;
+    public int shardCount = -1;
     public boolean stackable;
     public boolean members;
     public boolean edible;
@@ -27,7 +28,6 @@ public class ItemDefinition extends ProtocolWrapper {
     public boolean specialAttack;
     public boolean meleeWeapon, rangeWeapon, magicWeapon;
     public boolean twoHand;
-
     public int adrenaline = -1;
     public int slot = -1;
     public int secondSlot = -1;
@@ -42,14 +42,11 @@ public class ItemDefinition extends ProtocolWrapper {
     public int team = -1;
     public int creationSkill = -1;
     public int creationSkillLevel = -1;
-
     public Map<Integer, Object> params = new HashMap<Integer, Object>();
-
     private static final int ADRENALINE_PARAM = 4332, SPECIAL_ATTACK_PARENT_PARAM = 4338;
     private static final int[] EQUIP_ACTION_PARAMS = {528, 529, 530, 531, 1211}, BANK_ACTION_PARAMS = {1264, 1265};
     private static final int CREATON_SKILL_PARAM = 2640, CREATION_SKILL_LEVEL_PARAM = 2645;
     private static final int MELEE_WEAPON_PARAM = 2825, RAGE_WEAPON_PARAM = 2826, MAGIC_WEAPON_PARAM = 2827;
-
 
     public ItemDefinition(final ItemDefinitionLoader loader, final int id) {
         super(loader, id);
@@ -238,10 +235,8 @@ public class ItemDefinition extends ProtocolWrapper {
             skipValue(opcode, stream.getUByte());
         } else if (opcode == 139) {
             cosmeticId = stream.getUShort();
-            skipValue(opcode, cosmeticId);
         } else if (opcode == 140) {
             cosmeticTemplateId = stream.getUShort();
-            skipValue(opcode, cosmeticTemplateId);
         } else if (opcode >= 142 && opcode < 147) {
             // array index k-142 default -1
             int value = stream.getUShort();
@@ -255,13 +250,13 @@ public class ItemDefinition extends ProtocolWrapper {
         } else if (opcode == 157) {
             skipValue(opcode, true);
         } else if (opcode == 161) {
-            skipValue(opcode, stream.getUShort());
+            combineId = stream.getUShort();
         } else if (opcode == 162) {
-            skipValue(opcode, stream.getUShort());
+            combineTempladeId = stream.getUShort();
         } else if (opcode == 163) {
-            skipValue(opcode, stream.getUShort());
+            shardCount = stream.getUShort();
         } else if (opcode == 164) {
-            skipValue(opcode, stream.getString());
+            shardName = stream.getString();
         } else if (opcode == 165) {
             skipValue(opcode, 2);
         } else if (opcode == 249) {
@@ -303,8 +298,9 @@ public class ItemDefinition extends ProtocolWrapper {
                 count++;
             }
         }
-        if (count == 0)
+        if (count == 0) {
             return;
+        }
         this.bankActions = new String[count];
         for (int id : BANK_ACTION_PARAMS) {
             String action = (String) params.get(id);
@@ -313,7 +309,6 @@ public class ItemDefinition extends ProtocolWrapper {
             }
         }
     }
-
 
     private void loadSpecialAttack(final Map<Integer, Object> params) {
         if (params.containsKey(ADRENALINE_PARAM)) {
